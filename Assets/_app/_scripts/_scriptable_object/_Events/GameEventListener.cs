@@ -44,7 +44,7 @@ public class GameEventListener : MonoBehaviour
 
     public void _InvokeEvent(string m_chracter)
     {   
-        Debug.Log(m_chracter);
+        //Debug.Log(m_chracter);
         m_event_with_string.Invoke(m_chracter);
     }
 }

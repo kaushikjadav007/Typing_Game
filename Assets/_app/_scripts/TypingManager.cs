@@ -21,6 +21,7 @@ public class TypingManager : MonoBehaviour
     [Header("Sriptable Events")]
     public ScriptEvent m_value_change_event;
     public ScriptEvent m_player_move;
+    public ScriptEvent m_game_state_event;
 
     [Space]
     public bool m_input_enable;
@@ -41,20 +42,34 @@ public class TypingManager : MonoBehaviour
         m_input_field.onValueChanged.RemoveListener(_ValueChanged);
     }
 
-    private void Start()
+
+    public void _GameStateChangeEvent(string m_state)
     {
-        _StartGame();
+
+     //   Debug.Log(m_state);
+
+        switch (m_state)
+        {
+            case _DataStore.m_game_start:
+                _StartGame();
+                break;
+
+            case _DataStore.m_sentance_change:
+                _SetupSentance();
+                break;
+        }
     }
+
 
     public void _StartGame()
     {
         m_data_holder.m_currunt_index = 0;
         m_data_holder.m_currunt_sentance_no = 0;
-        _EnableSetup();
+        _SetupSentance();
     }
 
 
-    public void _EnableSetup()
+    public void _SetupSentance()
     {
 
         m_data_holder.m_currunt_index = -1;
@@ -81,7 +96,6 @@ public class TypingManager : MonoBehaviour
     {
         if (m_data_holder.m_currunt_index >= m_count)
         {
-            Debug.Log("FINISHED");
             _SentanceFinished();
             return;
         }
@@ -92,11 +106,11 @@ public class TypingManager : MonoBehaviour
             return;
         }
 
-        Debug.Log(m_currunt_list[m_data_holder.m_currunt_index] + "   " + m_value);
+     //   Debug.Log(m_currunt_list[m_data_holder.m_currunt_index] + "   " + m_value);
 
         if (m_value ==m_currunt_list[m_data_holder.m_currunt_index])
         {
-            Debug.Log("Right");
+           // Debug.Log("Right");
             //SET PATH TO GREEN
             m_player_move._Raise();
             m_data_holder._ColmpletedPath();
@@ -104,7 +118,7 @@ public class TypingManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Wrong ");
+           // Debug.Log("Wrong ");
             m_input_field.text = "";
         }
     }
@@ -115,21 +129,16 @@ public class TypingManager : MonoBehaviour
     void _SentanceFinished()
     {
         m_input_enable = false;
-        m_data_holder.m_currunt_index = 0;
         m_data_holder.m_currunt_sentance_no++;
-
-        Debug.Log(m_data_holder.m_all_sentances.Count);
+      //  Debug.Log(m_data_holder.m_all_sentances.Count);
 
         if (m_data_holder.m_currunt_sentance_no >= m_data_holder.m_all_sentances.Count)
         {
             Debug.Log("Finished All Sentances");
+            m_game_state_event._Raise(_DataStore.m_game_complete);
             return;
         }
 
-        _EnableSetup();
-
+        m_game_state_event._Raise(_DataStore.m_senance_complete);
     }
-
-
-
 }

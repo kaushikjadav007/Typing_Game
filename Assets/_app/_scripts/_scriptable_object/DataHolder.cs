@@ -6,6 +6,10 @@ using UnityEngine;
 public class DataHolder : ScriptableObject
 {
     public GameObject m_road_prefab;
+    public GameObject m_win_platform;
+    [Space]
+    public Transform m_genrated_win_platform;
+
     [Header("All the sentances")]
     [Space]
     public List<string> m_all_sentances;
@@ -22,6 +26,7 @@ public class DataHolder : ScriptableObject
     public int m_currunt_sentance_no;
 
 
+
     public void _GenratePathObjects()
     {
 
@@ -34,7 +39,6 @@ public class DataHolder : ScriptableObject
             {
                 Destroy(item.gameObject);
             }
-
         }
 
         Vector3 m_pos=Vector3.zero;
@@ -51,12 +55,21 @@ public class DataHolder : ScriptableObject
             m_genrated_road_blocks.Add(m_p);
 
             go.name = m_currunt_sentance_data[i];
-
             //DATA FILL
             m_p._InitialSetup(m_currunt_sentance_data[i]);
-
             m_pos.z += 1;
         }
+
+        if (m_genrated_win_platform==null)
+        {
+            GameObject m_g = Instantiate(m_win_platform, m_pos, Quaternion.identity);
+            m_genrated_win_platform = m_g.transform;
+        }
+        else
+        {
+            m_genrated_win_platform.transform.position = m_pos;
+        }
+
     }
 
     public void _ColmpletedPath()

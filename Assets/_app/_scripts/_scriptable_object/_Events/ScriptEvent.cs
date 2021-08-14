@@ -17,11 +17,11 @@ public class ScriptEvent : ScriptableObject
         }
     }
 
-    public void _Raise(string m_currunt_char)
+    public void _Raise(string m_string_param)
     {
         foreach (GameEventListener item in m_listerners)
         {
-            item._InvokeEvent(m_currunt_char);
+            item._InvokeEvent(m_string_param);
         }
     }
 

@@ -13,10 +13,23 @@ MonoBehaviour:
   m_Name: DataHolder
   m_EditorClassIdentifier: 
   m_road_prefab: {fileID: 7650075158473760753, guid: 766df21e78dc8cf49b6f77691aff3172, type: 3}
+  m_win_platform: {fileID: 4385654928603336179, guid: 0c2d7a4b16363dc4cb9e037f94dc2308, type: 3}
   m_all_sentances:
   - i am kaushik
   - i am ankita
+  m_currunt_sentance_data:
+  - i
+  - ' '
+  - a
+  - m
+  - ' '
+  - k
+  - a
+  - u
+  - s
+  - h
+  - i
+  - k
   m_genrated_road_blocks: []
   m_currunt_index: 0
   m_currunt_sentance_no: 0
-  m_currunt_char: 

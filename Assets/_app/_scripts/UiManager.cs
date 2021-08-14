@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
@@ -55,8 +56,7 @@ public class UiManager : MonoBehaviour
 
     void _HomeButton()
     {
-        m_game_complete_panel.SetActive(false);
-        m_game_state_event._Raise(_DataStore.m_game_complete);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void _GameStateChangeEvent(string m_state)
